@@ -37,7 +37,7 @@ pickle-email-*.html
 *~
 [#]*[#]
 
-
+.secret
 doc/
 *˜
 .project

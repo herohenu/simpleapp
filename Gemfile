@@ -10,7 +10,7 @@ gem 'pg'
 group :development, :test do
   gem 'rspec-rails', '2.13.1'
 end
-
+#gem 'rails_12factor', group: :production
 # Use SCSS for stylesheets
 gem 'sass-rails', '4.0.1'
 gem 'uglifier', '2.1.1'

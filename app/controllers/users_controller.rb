@@ -1,6 +1,8 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :signed_in_user, only: [:edit, :update]
+  before_action :correct_user,   only: [:edit, :update]
+
   def index
     @users = User.all
   end
@@ -35,7 +37,7 @@ class UsersController < ApplicationController
     if @user.update(user_params)
       flash[:success] = "资料更新成功!"
       #format.html { redirect_to @user, notice: 'User was successfully updated.' }
-      format.html { redirect_to @user }
+      redirect_to @user
     else
       render 'edit'
     end
@@ -55,5 +57,12 @@ class UsersController < ApplicationController
   def signed_in_user
     redirect_to signin_url, notice: "Please sign in." unless signed_in?
   end
+
+  #user only can edit self profile
+  def correct_user
+    @user = User.find(params[:id])
+    redirect_to root_path, notice: "request error." unless current_user?(@user)
+  end
+
 end
 

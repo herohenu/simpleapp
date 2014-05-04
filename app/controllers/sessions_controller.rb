@@ -4,10 +4,12 @@ class SessionsController < ApplicationController
     if user && user.authenticate(params[:session][:password])
       flash[:success] = "登录成功!"
       sign_in user
-      redirect_to user
+      #redirect_to user
+      redirect_back_or user
     else
       # Create an error message and re-render the signin form.
-      flash[:error] = "用户名或密码错误!"
+      #flash[:error] = "用户名或密码错误!"
+      flash.now[:error] = '用户名或密码错误!'
       render 'new'
     end
   end

@@ -7,6 +7,8 @@ gem 'rails', '4.0.4'
 gem 'bootstrap-sass', '2.3.2.0'
 #密码加密
 gem 'bcrypt-ruby'
+#to create fake users
+gem 'faker', '1.1.2'
 gem 'pg'
 # Use sqlite3 as the database for Active Record
 group :development, :test do

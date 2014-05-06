@@ -3,6 +3,7 @@ class UsersController < ApplicationController
   before_action :signed_in_user, only: [:index, :edit, :update]
   before_action :correct_user,   only: [:edit, :update]
   before_action :admin_user,     only: :destroy
+  before_action :home_page, only: [:new, :create]
 
   def index
     #@users = User.all
@@ -77,8 +78,12 @@ class UsersController < ApplicationController
     redirect_to root_path, notice: "request error." unless current_user?(@user)
   end
 
-  def  admin_user
+  def admin_user
     redirect_to(root_path) unless current_user.admin?
+  end
+
+  def home_page
+    redirect_to  root_path ,notice:  "You have logged in"  unless !signed_in?
   end
 end
 

@@ -12,6 +12,7 @@ class UsersController < ApplicationController
   end
 
   def show
+    @microposts = @user.microposts.paginate(page: params[:page])
   end
 
   def new
@@ -62,14 +63,6 @@ class UsersController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def user_params
     params.require(:user).permit(:name,:email,:password,:password_confirmation)
-  end
-
-  def signed_in_user
-    #redirect_to signin_url, notice: "Please sign in." unless signed_in?
-    unless  signed_in?
-      store_location
-      redirect_to signin_url, notice: "Please sign in."
-    end
   end
 
   #user only can edit self profile

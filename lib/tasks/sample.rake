@@ -24,6 +24,15 @@ namespace :db do
                    password_confirmation: password)
     end
   end
+  desc "Fill posts "
+  task posts: :environment do
+    users = User.all.limit(16)
+    Micropost.delete_all
+    50.times do
+      content = Faker::Lorem.sentence(5)
+      users.each { |user| user.microposts.create!(content: content) }
+    end
+  end
 
 
 end

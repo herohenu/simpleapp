@@ -34,5 +34,21 @@ namespace :db do
     end
   end
 
+  desc "make relationship"
+  task relation: :environment do
+    make_relationships
+    puts 'make relation ship  ok --->!!'
 
+  end
+
+
+end
+
+def make_relationships
+  users = User.all
+  user = users.first
+  followed_users = users[2..50]
+  followers = users[3..40]
+  followed_users.each { |followed| user.follow!(followed) }
+  followers.each { |follower| follower.follow!(user) }
 end

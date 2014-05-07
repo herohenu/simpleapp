@@ -12,11 +12,11 @@ class User < ActiveRecord::Base
   before_save { self.email = email.downcase }
   before_create :create_remember_token
 
-  validates :name,  presence: true, length: { maximum: 50 }
+  validates :name, presence: true, length: {maximum: 50}
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   #唯一性验证无法真正保证唯一性。
-  validates :email, presence: true, format: { with: VALID_EMAIL_REGEX }, uniqueness: { case_sensitive: false }
-  validates :password, length: { minimum: 6 }
+  validates :email, presence: true, format: {with: VALID_EMAIL_REGEX}, uniqueness: {case_sensitive: false}
+  validates :password, length: {minimum: 6}
 
   has_secure_password
 
@@ -34,6 +34,7 @@ class User < ActiveRecord::Base
     Micropost.where("user_id = ?", id)
   end
 
+  #判断是否已经关注了 other_user
   def following?(other_user)
     relationships.find_by(followed_id: other_user.id)
   end
@@ -48,8 +49,8 @@ class User < ActiveRecord::Base
 
   private
 
-    def create_remember_token
-      # Create the token.
-      self.remember_token = User.hash(User.new_remember_token)
-    end
+  def create_remember_token
+    # Create the token.
+    self.remember_token = User.hash(User.new_remember_token)
+  end
 end
